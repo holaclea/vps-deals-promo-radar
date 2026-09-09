@@ -1,0 +1,66 @@
+name: Update official VPS offers
+on:
+  schedule:
+    - cron: '23 18 * * *' # 02:23 Asia/Shanghai; GitHub schedules are best effort.
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scraper.py'
+      - 'build.py'
+      - 'config.json'
+      - 'templates/**'
+      - 'static/**'
+      - 'tests/**'
+      - '.github/workflows/update.yml'
+permissions:
+  contents: write
+concurrency:
+  group: daily-offers-main
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test data safety
+        run: python -m unittest discover -s tests -v
+      - name: Fetch official sources
+        id: scrape
+        continue-on-error: true
+        run: python scraper.py
+      - name: Build static site even if all sources fail
+        run: python build.py
+      - name: Commit source status, data and generated site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/offers.json site/
+          if ! git diff --cached --quiet; then
+            git commit -m "data: refresh official offers and source status"
+            git push origin HEAD:main
+          fi
+      - name: Write source health summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          data = json.loads(Path('data/offers.json').read_text())
+          errors = [s for s in data['sources'] if s['status'] != 'ok']
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('## Official source health\n')
+              for s in data['sources']:
+                  out.write(f"- {s['provider_id']}: {s['status']}; {s['offer_count']} new records\n")
+          if errors:
+              print('::warning::One or more official sources failed; see summary and public source status.')
+          PY
+      - name: Report complete source outage after publishing stale status
+        if: steps.scrape.outcome == 'failure'
+        run: exit 1

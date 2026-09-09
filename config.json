@@ -1,0 +1,13 @@
+{
+  "brand": "vps-deals",
+  "niche": "VPS hosting",
+  "base_url": "",
+  "repository": "https://github.com/holaclea/vps-deals-promo-radar",
+  "stale_after_hours": 72,
+  "providers": [
+    {"id":"buyvm","name":"BuyVM","homepage":"https://buyvm.net/","source_url":"https://buyvm.net/kvm-dedicated-server-slices/","kind":"regular","adapter":"buyvm"},
+    {"id":"ramnode","name":"RamNode","homepage":"https://ramnode.com/","source_url":"https://ramnode.com/pricing","kind":"regular","adapter":"ramnode"},
+    {"id":"racknerd","name":"RackNerd","homepage":"https://www.racknerd.com/","source_url":"https://www.racknerd.com/specials/","kind":"promotion","adapter":"racknerd"}
+  ],
+  "affiliate_links": {}
+}

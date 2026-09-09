@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env*
+work/
+*.pem
+*.key
+*.zip
