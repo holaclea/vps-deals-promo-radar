@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://vps-deals-promo-radar-bqv.pages.dev/sitemap.xml

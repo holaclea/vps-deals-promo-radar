@@ -27,6 +27,11 @@ class SafetyTests(unittest.TestCase):
     def test_failed_first_fetch_does_not_invent_offer(self):
         new = refresh({"providers":[P]}, {}, NOW, loader=lambda _:('',b''), robots=lambda _:True)
         self.assertEqual(new['offers'], [])
+    def test_racknerd_card_includes_specs_outside_header(self):
+        provider = dict(P, id='racknerd', adapter='racknerd', kind='promotion')
+        html = '<article><div><h3>1 GB KVM VPS</h3><p>$21.99 /year</p></div><ul><li>1 vCPU Core</li><li>20 GB SSD Storage</li></ul></article>'
+        result = parse(provider, html, NOW, 'digest')
+        self.assertEqual(result[0]['specs'], ['1 vCPU Core','20 GB SSD Storage'])
     def test_removed_offer_is_not_kept_active(self):
         old_html = HTML + HTML.replace('512','1024')
         old = {"offers":parse(P, old_html, NOW, 'digest')}

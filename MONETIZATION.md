@@ -8,6 +8,8 @@
 
 用户获批后，将后台生成的真实链接填入 config.json 的 affiliate_links；不要写账号密码、API token 或伪造 ref ID。变现展示与自然排序分离，链接旁披露佣金关系。
 
+披露参考：[FTC 官方联盟营销与代言指引](https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking)。适用规则需结合受众和司法辖区核对。
+
 ## 2. 可叠加业务
 
 - 有真实需求后，接受明确标注的赞助位置；没有订单时不伪造赞助商或报价。

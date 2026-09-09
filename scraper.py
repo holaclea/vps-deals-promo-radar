@@ -107,7 +107,8 @@ def parse(provider, html, now, digest):
             candidates = [n for n in root.find() if heading in list(n.find("h3"))
                           and len(list(n.find("h3"))) == 1 and re.search(r"\$\s*\d+[.\d]*\s*/\s*year", n.text(), re.I)]
             if candidates:
-                node = min(candidates, key=lambda n: len(n.text()))
+                complete = [n for n in candidates if any(n.find("li"))]
+                node = min(complete or candidates, key=lambda n: len(n.text()))
                 specs = [li.text() for li in node.find("li")]
                 match = re.search(r"\$\s*\d+[.\d]*\s*/\s*year", node.text(), re.I)
                 offers.append(record(provider, title, match[0], specs, now, digest))

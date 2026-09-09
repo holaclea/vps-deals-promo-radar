@@ -3,7 +3,8 @@
 默认输入：NICHE=`VPS hosting`，BRAND=`vps-deals`。种子为 BuyVM、RamNode、RackNerd 官方公开页面。独立中文价格索引；促销与常规定价分开，未知库存、税费、续费价和有效日期不补造。
 
 - 仓库：https://github.com/holaclea/vps-deals-promo-radar
-- 主站：待 Cloudflare Pages 部署核验后填写，当前不声称已上线。
+- 主站：https://vps-deals-promo-radar-bqv.pages.dev （2026-09-09 已部署并在 Edge 打开核验）
+- 首轮自动更新：https://github.com/holaclea/vps-deals-promo-radar/actions/runs/34332334900 （成功；三个来源共 17 条记录，其中 RackNerd 官方促销 5 条）
 - 数据来源：`config.json` 中的官方 URL；每条记录带核验时间、原价片段和响应 SHA-256。
 - 当前联盟追踪：未启用。没有获批的联盟 ID，不编造链接或佣金。
 
@@ -54,6 +55,8 @@ Cloudflare Pages 使用 Git 集成监听主分支。必须实测 Actions 自动�
 ## 运营边界
 
 域名可在品牌确定后注册，保留品牌和连续经营记录；仅放着域名攒年份不保证排名。本站尚未验证搜索需求、竞争难度或盈利能力。提供有来源的数据和可复用对比，争取别人自愿引用；不购买操纵排名的链接，不制造评价或流量。
+
+价格可在任何时候变化，上述数量只是首次验收快照，最新状态以站内 JSON 为准。
 
 官方规则参考（2026-09-09核对）：
 - https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows

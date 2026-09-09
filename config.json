@@ -1,7 +1,7 @@
 {
   "brand": "vps-deals",
   "niche": "VPS hosting",
-  "base_url": "",
+  "base_url": "https://vps-deals-promo-radar-bqv.pages.dev",
   "repository": "https://github.com/holaclea/vps-deals-promo-radar",
   "stale_after_hours": 72,
   "providers": [
